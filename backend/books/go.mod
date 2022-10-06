@@ -1,4 +1,4 @@
-module bookings
+module books
 
 go 1.18
 
