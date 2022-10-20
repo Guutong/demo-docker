@@ -50,7 +50,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 docker build -t web .
 
 
-docker build --build-arg BOOK_API=http://localhost:8082 --build-arg NEWS_API=http://localhost:8081 -t web .
+docker build \
+    --build-arg BOOK_API=http://localhost:8082 \
+    --build-arg NEWS_API=http://localhost:8081 \
+    -t web .
 ```
 
 ```

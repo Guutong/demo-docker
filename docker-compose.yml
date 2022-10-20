@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  book-service:
+    image: books-service
+    ports:
+      - 8082:8080
+    volumes:
+      - ./backend/books/db/:/server/db
+  
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=demo
+    volumes:
+      - ./backend/news/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  new-service:
+    image: news-service
+    ports:
+      - 8083:8081
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    environment:
+      - DB_HOST=mongodb
+  
+  web:
+    build:
+      context: ./frontend
+      args:
+        - BOOK_API=http://localhost:8082
+        - NEWS_API=http://localhost:8083
+    ports:
+      - 80:80
+
+  # web:
+  #   image: rackz/demo-web
+  #   ports:
+  #     - 80:80

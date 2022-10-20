@@ -18,3 +18,8 @@
 | Retrieve all News              | GET    | `/api/news/:id` |
 | Retrieve a single News with id | PUT    | `/api/news/:id` |
 | Delete a News with id          | DELETE | `/api/news/:id` |
+
+
+```
+docker compose -f docker-compose.yml up -d
+```
